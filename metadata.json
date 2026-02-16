@@ -1,0 +1,7 @@
+{
+  "name": "SignEdit Pro - Advanced PDF Signature Tool",
+  "description": "A professional PDF editing tool that allows users to upload signatures, remove backgrounds using Gemini AI, and place them along with company seals onto documents with full drag-and-drop control.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
