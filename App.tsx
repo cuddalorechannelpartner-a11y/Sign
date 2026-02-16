@@ -283,7 +283,7 @@ const App: React.FC = () => {
                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
              </svg>
           </div>
-          <h1 className="text-xl font-black">SIGN<span className="text-blue-600">PRO</span></h1>
+          <h1 className="text-xl font-black text-gray-900 tracking-tight">SIGN<span className="text-blue-600">PRO</span></h1>
         </div>
         <nav className="flex bg-gray-100 p-1.5 rounded-2xl">
           <button onClick={() => setView(ViewMode.EDITOR)} className={`px-6 py-2 rounded-xl text-sm font-bold ${view === ViewMode.EDITOR ? 'bg-white text-blue-600 shadow-md' : 'text-gray-500'}`}>Editor</button>
@@ -295,57 +295,86 @@ const App: React.FC = () => {
         {view === ViewMode.EDITOR && (
           <div className="max-w-[1600px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-10">
             <div className="xl:col-span-3 space-y-6">
-              <section className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 space-y-6">
-                <h3 className="font-black text-gray-800 uppercase tracking-tight text-lg">Configuration</h3>
+              <section className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 space-y-8">
+                <h3 className="font-black text-gray-800 uppercase tracking-tight text-lg border-b border-gray-50 pb-4">Configuration</h3>
+                
                 <div className="space-y-4">
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Step 1: Document</label>
-                  <input type="file" accept=".pdf" onChange={handlePdfUpload} className="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-black">1</span>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Target Document</label>
+                  </div>
+                  <input type="file" accept=".pdf" onChange={handlePdfUpload} className="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition" />
                 </div>
                 
                 <div className="space-y-4">
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Step 2: Assets</label>
-                  <div className="grid grid-cols-1 gap-2">
-                    <div className="relative">
-                      <input type="file" accept="image/*" onChange={(e) => handleSignatureUpload(e, 'consumer')} className="block w-full text-[10px] text-transparent file:w-full file:bg-gray-50 file:border file:border-gray-200 file:py-3 file:rounded-xl file:text-gray-600 file:font-bold hover:file:bg-gray-100 cursor-pointer" />
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-[10px] font-bold text-gray-400 uppercase">Upload Consumer Sign</div>
-                    </div>
-                    <div className="relative">
-                      <input type="file" accept="image/*" onChange={(e) => handleSignatureUpload(e, 'witness')} className="block w-full text-[10px] text-transparent file:w-full file:bg-gray-50 file:border file:border-gray-200 file:py-3 file:rounded-xl file:text-gray-600 file:font-bold hover:file:bg-gray-100 cursor-pointer" />
-                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-[10px] font-bold text-gray-400 uppercase">Upload Witness Sign</div>
-                    </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-black">2</span>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Signature Assets</label>
                   </div>
-                  <button onClick={addSeal} className="w-full py-3 border-2 border-gray-900 rounded-xl text-[10px] font-black uppercase hover:bg-gray-900 hover:text-white transition">Import Company Seal</button>
+                  <div className="grid grid-cols-1 gap-3">
+                    <label className="group flex items-center justify-center gap-3 w-full bg-gray-50 border-2 border-dashed border-gray-200 py-4 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all">
+                      <input type="file" accept="image/*" onChange={(e) => handleSignatureUpload(e, 'consumer')} className="hidden" />
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                      </svg>
+                      <span className="text-[11px] font-black text-gray-600 group-hover:text-blue-700 uppercase tracking-tight">Upload Consumer Signature</span>
+                    </label>
+                    
+                    <label className="group flex items-center justify-center gap-3 w-full bg-gray-50 border-2 border-dashed border-gray-200 py-4 rounded-2xl cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all">
+                      <input type="file" accept="image/*" onChange={(e) => handleSignatureUpload(e, 'witness')} className="hidden" />
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 group-hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                      </svg>
+                      <span className="text-[11px] font-black text-gray-600 group-hover:text-blue-700 uppercase tracking-tight">Upload Witness Signature</span>
+                    </label>
+                  </div>
+                  <button onClick={addSeal} className="w-full py-4 border-2 border-gray-900 rounded-2xl text-[11px] font-black uppercase hover:bg-gray-900 hover:text-white transition-all flex items-center justify-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Import Corporate Seal
+                  </button>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Step 3: User Info <span className="text-red-500">*</span></label>
-                  <input 
-                    type="text" 
-                    placeholder="Operator Name (Mandatory)" 
-                    value={userName} 
-                    onChange={(e) => setUserName(e.target.value)} 
-                    className={`w-full px-4 py-3 bg-gray-50 rounded-xl outline-none text-sm font-bold border ${!userName.trim() ? 'border-red-200 focus:border-red-400' : 'border-transparent focus:border-blue-200'} transition`} 
-                  />
-                  {!userName.trim() && <p className="text-[9px] text-red-500 font-bold uppercase mt-1">Operator name is required to export</p>}
+                <div className="space-y-4 pt-4 border-t border-gray-50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-black">3</span>
+                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400">Auditor Information <span className="text-red-500 font-bold">*</span></label>
+                  </div>
+                  <div className="relative">
+                    <input 
+                      type="text" 
+                      placeholder="Operator Full Name" 
+                      value={userName} 
+                      onChange={(e) => setUserName(e.target.value)} 
+                      className={`w-full px-5 py-4 bg-gray-50 rounded-2xl outline-none text-sm font-black border-2 ${!userName.trim() ? 'border-red-100 focus:border-red-300' : 'border-transparent focus:border-blue-300'} transition-all`} 
+                    />
+                    {!userName.trim() && (
+                      <div className="absolute -bottom-6 left-2 flex items-center gap-1">
+                        <div className="w-1 h-1 bg-red-500 rounded-full animate-pulse"></div>
+                        <p className="text-[9px] text-red-500 font-black uppercase tracking-tighter">Required for export authorization</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </section>
               
               <button 
                 disabled={!pdfFile || isProcessing || !userName.trim()} 
                 onClick={handleSavePdf} 
-                className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black uppercase shadow-xl hover:bg-blue-700 disabled:bg-gray-200 transition-all active:scale-95 flex items-center justify-center gap-2"
+                className="w-full py-6 bg-blue-600 text-white rounded-[32px] font-black uppercase tracking-widest shadow-2xl hover:bg-blue-700 disabled:bg-gray-200 disabled:shadow-none transition-all transform active:scale-95 flex items-center justify-center gap-3 overflow-hidden group"
               >
-                <span>Export Final PDF</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span className="relative z-10">Export Final PDF</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 relative z-10 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                 </svg>
               </button>
-              <p className="text-[9px] text-gray-400 font-bold text-center uppercase tracking-widest leading-relaxed">Assets will be rendered in Black & White for professional output.</p>
+              <p className="text-[10px] text-gray-400 font-bold text-center uppercase tracking-[0.2em] leading-relaxed px-4">Assets will be rendered in Black & White for legal standard professional output.</p>
             </div>
             
-            <div className="xl:col-span-9 bg-[#E5E7EB] rounded-[40px] flex items-center justify-center min-h-[850px] p-10 overflow-auto relative">
+            <div className="xl:col-span-9 bg-[#E5E7EB] rounded-[56px] flex items-center justify-center min-h-[850px] p-12 overflow-auto relative">
               {pageInfo ? (
-                <div ref={editorRef} className="shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)]" style={getEditorStyle()}>
+                <div ref={editorRef} className="shadow-[0_40px_100px_-20px_rgba(0,0,0,0.4)] transition-all duration-700 hover:shadow-[0_50px_120px_-20px_rgba(0,0,0,0.5)]" style={getEditorStyle()}>
                   {signatures.map(sig => (
                     <DraggableSignature 
                       key={sig.id} 
@@ -358,21 +387,30 @@ const App: React.FC = () => {
                   ))}
                 </div>
               ) : (
-                <div className="text-center space-y-4">
-                  <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto text-gray-300 shadow-inner">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <div className="text-center space-y-6 max-w-sm px-10">
+                  <div className="w-24 h-24 bg-white/50 backdrop-blur-md rounded-full flex items-center justify-center mx-auto text-gray-300 shadow-inner border border-white/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <div className="text-gray-400 font-bold uppercase tracking-widest text-sm">Waiting for Document...</div>
+                  <div className="space-y-2">
+                    <h4 className="text-gray-400 font-black uppercase tracking-widest text-sm">Workplace Ready</h4>
+                    <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tight opacity-60">Upload your PDF using the configuration panel to begin placing authorization assets.</p>
+                  </div>
                 </div>
               )}
               
               {isProcessing && (
-                <div className="absolute inset-0 bg-white/60 z-[100] flex flex-col items-center justify-center backdrop-blur-sm transition-all">
-                  <div className="bg-white p-8 rounded-3xl shadow-2xl flex flex-col items-center gap-4">
-                    <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-600 border-t-transparent"></div>
-                    <p className="font-black uppercase tracking-widest text-xs text-gray-900">{processingStatus}</p>
+                <div className="absolute inset-0 bg-white/70 z-[100] flex flex-col items-center justify-center backdrop-blur-xl transition-all duration-500">
+                  <div className="bg-white p-12 rounded-[48px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.1)] flex flex-col items-center gap-6 border border-gray-100">
+                    <div className="relative">
+                      <div className="animate-spin rounded-full h-14 w-14 border-[3px] border-blue-100 border-t-blue-600"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
+                      </div>
+                    </div>
+                    <p className="font-black uppercase tracking-[0.3em] text-[10px] text-gray-900 leading-none">{processingStatus}</p>
+                    <p className="text-[8px] text-gray-400 font-black uppercase tracking-widest opacity-50">Authorized Document Generation</p>
                   </div>
                 </div>
               )}
@@ -381,90 +419,115 @@ const App: React.FC = () => {
         )}
 
         {croppingId && (
-            <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 p-10 backdrop-blur-md">
-                <div className="bg-white rounded-[40px] p-8 max-w-4xl w-full flex flex-col gap-6 shadow-2xl">
-                    <div className="flex justify-between items-center border-b border-gray-100 pb-4">
-                        <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 p-10 backdrop-blur-xl">
+                <div className="bg-white rounded-[56px] p-12 max-w-4xl w-full flex flex-col gap-8 shadow-2xl border border-gray-100">
+                    <div className="flex justify-between items-center border-b border-gray-50 pb-6">
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758L5 19m0-14l4.121 4.121" />
                                 </svg>
                             </div>
-                            <h3 className="text-xl font-black uppercase tracking-tight">Refine Asset Area</h3>
+                            <div>
+                              <h3 className="text-2xl font-black uppercase tracking-tighter text-gray-900">Refine Asset Area</h3>
+                              <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest leading-none mt-1">Select the significant region to isolate</p>
+                            </div>
                         </div>
-                        <button onClick={() => setCroppingId(null)} className="text-gray-400 hover:text-red-500 font-bold text-xs uppercase transition-colors tracking-widest">Cancel</button>
+                        <button onClick={() => setCroppingId(null)} className="text-gray-400 hover:text-red-500 font-black text-xs uppercase transition-colors tracking-[0.2em] bg-gray-50 px-6 py-3 rounded-2xl">Cancel</button>
                     </div>
                     
-                    <div className="relative bg-gray-50 rounded-2xl overflow-hidden cursor-crosshair flex items-center justify-center border border-gray-100" style={{ height: '500px' }}>
-                        <div className="relative inline-block">
-                          <canvas ref={cropCanvasRef} onMouseDown={handleCropMouseDown} onMouseMove={handleCropMouseMove} onMouseUp={handleCropMouseUp} className="max-w-full max-h-[500px] shadow-lg" />
+                    <div className="relative bg-gray-50 rounded-[32px] overflow-hidden cursor-crosshair flex items-center justify-center border border-gray-100" style={{ height: '500px' }}>
+                        <div className="relative inline-block border-2 border-white shadow-sm rounded-xl overflow-hidden bg-white">
+                          <canvas ref={cropCanvasRef} onMouseDown={handleCropMouseDown} onMouseMove={handleCropMouseMove} onMouseUp={handleCropMouseUp} className="max-w-full max-h-[500px]" />
                           {isSelectingCrop && cropCanvasRef.current && (
                               <div style={{
                                   position: 'absolute',
                                   border: '2px dashed #3b82f6',
-                                  backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                                  backgroundColor: 'rgba(59, 130, 246, 0.15)',
                                   pointerEvents: 'none',
                                   left: `${(Math.min(cropRect.x, cropRect.x + cropRect.w) / cropCanvasRef.current.width) * cropCanvasRef.current.clientWidth}px`,
                                   top: `${(Math.min(cropRect.y, cropRect.y + cropRect.h) / cropCanvasRef.current.height) * cropCanvasRef.current.clientHeight}px`,
                                   width: `${(Math.abs(cropRect.w) / cropCanvasRef.current.width) * cropCanvasRef.current.clientWidth}px`,
-                                  height: `${(Math.abs(cropRect.h) / cropCanvasRef.current.height) * cropCanvasRef.current.clientHeight}px`
+                                  height: `${(Math.abs(cropRect.h) / cropCanvasRef.current.height) * cropCanvasRef.current.clientHeight}px`,
+                                  boxShadow: '0 0 0 9999px rgba(0, 0, 0, 0.4)'
                               }} />
                           )}
                         </div>
                     </div>
                     
-                    <button onClick={applyCrop} className="w-full py-4 bg-gray-900 text-white font-black uppercase rounded-2xl hover:bg-black transition-all shadow-xl active:scale-[0.98]">Confirm Selection</button>
+                    <button onClick={applyCrop} className="w-full py-5 bg-gray-900 text-white font-black uppercase rounded-[28px] hover:bg-black transition-all shadow-2xl active:scale-[0.98] tracking-[0.2em]">Confirm Isolation Selection</button>
                 </div>
             </div>
         )}
 
         {view === ViewMode.ADMIN_LOGIN && (
-          <div className="max-w-md mx-auto mt-20 bg-white p-12 rounded-[48px] shadow-2xl border border-gray-100">
-            <h2 className="text-3xl font-black text-center mb-10 tracking-tight uppercase">Admin Vault</h2>
-            <form onSubmit={handleAdminLogin} className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest px-2">Secure Key</label>
-                <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl text-center font-bold outline-none focus:border-blue-400 transition" placeholder="••••••••" />
+          <div className="max-w-md mx-auto mt-32 bg-white p-16 rounded-[64px] shadow-2xl border border-gray-100 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-2 bg-blue-600"></div>
+            <h2 className="text-3xl font-black text-center mb-12 tracking-tighter uppercase text-gray-900">Admin Vault</h2>
+            <form onSubmit={handleAdminLogin} className="space-y-8">
+              <div className="space-y-3">
+                <label className="text-[10px] font-black uppercase text-gray-400 tracking-[0.3em] px-2 leading-none">Secure Access Key</label>
+                <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-6 bg-gray-50 border-2 border-transparent rounded-[32px] text-center font-black outline-none focus:border-blue-400 focus:bg-white transition-all tracking-[0.4em] text-lg" placeholder="••••••••" />
               </div>
-              <button type="submit" className="w-full py-4 bg-gray-900 text-white font-black rounded-2xl shadow-xl hover:bg-black transition active:scale-95">Authenticate</button>
+              <button type="submit" className="w-full py-5 bg-gray-900 text-white font-black rounded-[32px] shadow-2xl hover:bg-black transition-all active:scale-95 tracking-widest uppercase">Authenticate Identity</button>
             </form>
           </div>
         )}
 
         {view === ViewMode.ADMIN_DASHBOARD && (
-          <div className="max-w-6xl mx-auto space-y-10">
-            <div className="bg-white p-10 rounded-[40px] shadow-xl flex justify-between items-center border border-gray-100">
-               <h2 className="text-3xl font-black uppercase tracking-tight text-blue-600">Operational Center</h2>
-               <button onClick={() => setView(ViewMode.EDITOR)} className="px-6 py-3 bg-red-50 text-red-600 font-bold rounded-2xl hover:bg-red-100 transition">Close Session</button>
+          <div className="max-w-6xl mx-auto space-y-12 pb-20">
+            <div className="bg-white p-12 rounded-[56px] shadow-2xl flex justify-between items-center border border-gray-100">
+               <div>
+                <h2 className="text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">Operational <span className="text-blue-600">Center</span></h2>
+                <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em] mt-3">Governance & Global Asset Management</p>
+               </div>
+               <button onClick={() => setView(ViewMode.EDITOR)} className="px-8 py-4 bg-red-50 text-red-600 font-black text-[11px] uppercase tracking-[0.2em] rounded-[24px] hover:bg-red-100 transition-all shadow-sm">Close Secure Session</button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-               <div className="bg-white p-10 rounded-[40px] shadow-xl space-y-6 border border-gray-100">
-                  <h3 className="font-black uppercase tracking-widest text-xs text-gray-400">Master Asset: Company Seal</h3>
-                  <div className="h-48 flex items-center justify-center bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+               <div className="bg-white p-12 rounded-[56px] shadow-2xl space-y-8 border border-gray-100">
+                  <h3 className="font-black uppercase tracking-[0.2em] text-[11px] text-gray-400 border-b border-gray-50 pb-4">Master Asset: Corporate Seal</h3>
+                  <div className="h-64 flex items-center justify-center bg-gray-50 rounded-[40px] border-4 border-dashed border-gray-100 p-8 relative overflow-hidden group">
                     {adminSettings.companySealUrl ? (
-                      <img src={adminSettings.companySealUrl} className="max-h-full object-contain drop-shadow-lg grayscale" />
+                      <img src={adminSettings.companySealUrl} className="max-h-full object-contain drop-shadow-2xl grayscale transition-transform duration-700 group-hover:scale-110" />
                     ) : (
-                      <span className="text-gray-300 font-bold uppercase text-[10px]">No Asset Defined</span>
+                      <div className="text-center opacity-30">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-gray-300 font-black uppercase text-[10px] tracking-widest">No Asset Defined</span>
+                      </div>
                     )}
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Update Master Asset</label>
-                    <input type="file" onChange={handleSealUpload} className="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-gray-100 file:text-gray-600 hover:file:bg-gray-200" />
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-black uppercase text-gray-400 tracking-[0.3em] px-2 leading-none">Replace Master Asset</label>
+                    <input type="file" onChange={handleSealUpload} className="block w-full text-[10px] text-gray-500 file:mr-6 file:py-4 file:px-8 file:rounded-[24px] file:border-0 file:text-[10px] file:font-black file:bg-gray-900 file:text-white file:uppercase file:tracking-widest hover:file:bg-black transition-all cursor-pointer" />
                   </div>
                </div>
-               <div className="bg-white p-10 rounded-[40px] shadow-xl space-y-6 border border-gray-100 flex flex-col">
-                  <h3 className="font-black uppercase tracking-widest text-xs text-gray-400">Activity Logs (Audit Trail)</h3>
-                  <div className="flex-1 max-h-[400px] overflow-auto space-y-3 pr-2 custom-scrollbar">
+               <div className="bg-white p-12 rounded-[56px] shadow-2xl space-y-8 border border-gray-100 flex flex-col">
+                  <h3 className="font-black uppercase tracking-[0.2em] text-[11px] text-gray-400 border-b border-gray-50 pb-4">Cryptographic Audit Trail</h3>
+                  <div className="flex-1 max-h-[500px] overflow-auto space-y-4 pr-3 custom-scrollbar">
                     {logs.length > 0 ? logs.map(l => (
-                      <div key={l.id} className="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex flex-col gap-1 transition hover:bg-white hover:shadow-md">
+                      <div key={l.id} className="p-6 bg-gray-50 rounded-[32px] border border-gray-100 flex flex-col gap-2 transition-all hover:bg-white hover:shadow-xl group">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs font-black text-gray-900 uppercase">{l.userName}</span>
-                          <span className="text-[9px] text-gray-400 font-mono">{l.timestamp}</span>
+                          <span className="text-xs font-black text-gray-900 uppercase tracking-tight">{l.userName}</span>
+                          <span className="text-[10px] text-gray-400 font-mono font-bold">{l.timestamp}</span>
                         </div>
-                        <span className="text-[11px] text-blue-600 font-bold truncate">{l.fileName}</span>
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-white border border-gray-100 flex items-center justify-center text-blue-600 shadow-sm group-hover:scale-110 transition-transform">
+                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                             </svg>
+                          </div>
+                          <span className="text-[11px] text-blue-600 font-black truncate tracking-tight">{l.fileName}</span>
+                        </div>
                       </div>
                     )) : (
-                      <div className="h-full flex items-center justify-center text-gray-300 font-bold uppercase text-[10px]">No Logs Recorded</div>
+                      <div className="h-full flex flex-col items-center justify-center text-center opacity-30 py-20">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <p className="text-gray-300 font-black uppercase text-[10px] tracking-[0.3em]">No Recorded Operations</p>
+                      </div>
                     )}
                   </div>
                </div>
@@ -473,9 +536,25 @@ const App: React.FC = () => {
         )}
       </main>
       
-      <footer className="p-10 text-center">
-        <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.4em]">SignEdit Pro Security Suite &bull; {new Date().getFullYear()}</p>
+      <footer className="p-12 text-center border-t border-gray-50 bg-white/50 backdrop-blur-md">
+        <p className="text-[10px] text-gray-300 font-black uppercase tracking-[0.5em] leading-none">SignPro Enterprise Secure Architecture &bull; {new Date().getFullYear()} &bull; Professional Edition</p>
       </footer>
+
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #E5E7EB;
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: #D1D5DB;
+        }
+      `}</style>
     </div>
   );
 };
